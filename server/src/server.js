@@ -16,7 +16,11 @@ app.use(cors({ origin(origin, callback) {
   return callback(new Error('Origin not allowed by CORS'));
 }, methods: ['GET', 'POST', 'PATCH', 'DELETE'], allowedHeaders: ['Content-Type', 'Authorization'] }));
 app.use(express.json({ limit: '20kb' }));
-
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    message: 'Ethixweb API is running successfully'
+  });
+});
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' }));
 app.use('/api/enquiries', enquiriesRouter);
 app.use('/api/admin', adminRouter);
